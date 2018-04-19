@@ -1,5 +1,5 @@
 <?php
-//header("Content-type:text/html;charset=utf-8");
+header("Content-type:text/html;charset=utf-8");
 
 
 $client = new SoapClient("http://112.64.17.60:9080/services/pushResource?wsdl");
@@ -7,11 +7,11 @@ try{
   $vendorCode = 'SH021081';
   $vendorName = array('vendorName' => "上海申环信息科技有限公司");
   $vendorCodeInput = array('vendorCode' => "SH021081");;
-  	//1、厂家信息注册
-	//  var_dump($name);
-	//  $result =  $client->__soapCall('registerVendor', [
-	//      ['vendorName' => $name]
-	//  ]);
+  //1、厂家信息注册
+//  var_dump($name);
+//  $result =  $client->__soapCall('registerVendor', [
+//      ['vendorName' => $name]
+//  ]);
 
 //  $para = array('vendorName' => $name);
   $result =  $client->__soapCall('registerVendor', [$vendorName]);

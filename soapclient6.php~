@@ -7,28 +7,26 @@ try{
   $vendorCode = 'SH021081';
   $vendorName = array('vendorName' => "上海申环信息科技有限公司");
   $vendorCodeInput = array('vendorCode' => "SH021081");;
-  	//1、厂家信息注册
-	//  var_dump($name);
-	//  $result =  $client->__soapCall('registerVendor', [
-	//      ['vendorName' => $name]
-	//  ]);
 
-//  $para = array('vendorName' => $name);
-  $result =  $client->__soapCall('registerVendor', [$vendorName]);
-  $vendorCode = $result->vendorCode;
-  //echo $vendorCode."\n";
-  var_dump($result);
-  $result =  $client->__soapCall('pullRegion', [$vendorCodeInput]);
-  //var_dump($result);
 
-//    6、上传实时监测数据
+//6、上传实时监测数据
 
+
+    	$datetime = time();
+	//$datetime = (float)$datetime;
+	echo "time = ".$datetime.PHP_EOL;
+
+	$date = new DateTime();
+	echo $date->format('Y-m-d H:i:00').PHP_EOL;
+	//echo $date->format('U');
+	$mintime =  strtotime($date->format('Y-m-d H:i:00'));
+	$mintime = (float) $mintime;
+	echo $mintime.PHP_EOL;
 
     $datetime = time();
-    echo "time = ".$datetime.PHP_EOL;
     $emsDataList =
         array(
-             'devCode'=>'SHENHUAN_PRJ-SH021081-02',
+             'devCode'=>'SHENHUAN_PRJ-SH021081-06',
              'prjCode'=>'SHENHUAN_PRJ',
              'prjType'=>1,
              'dust'=>57.001,
@@ -57,12 +55,13 @@ try{
              'humiFlag'=>'N'
         );
     $result =  $client->__soapCall('pushRealTimeData',[array('vendorCode'=> "SH021081",'emsDataList' => [$emsDataList])]);
-    $strout = iconv("utf-8","gbk", json_encode($result, JSON_UNESCAPED_UNICODE));
+    //$strout = iconv("utf-8","gbk", json_encode($result, JSON_UNESCAPED_UNICODE));
+	$strout =json_encode($result);
     echo "pushRealTimeData result :".$strout.PHP_EOL.PHP_EOL;
 
-    $result =  $client->__soapCall('pushHourlyData',[array('vendorCode'=> "SH021081",'emsHourlyDataList' => [$emsDataList])]);
-    $strout = iconv("utf-8","gbk", json_encode($result, JSON_UNESCAPED_UNICODE));
-    echo "pushHourlyData result :".$strout.PHP_EOL.PHP_EOL;
+//    $result =  $client->__soapCall('pushHourlyData',[array('vendorCode'=> "SH021081",'emsHourlyDataList' => [$emsDataList])]);
+//    $strout = iconv("utf-8","gbk", json_encode($result, JSON_UNESCAPED_UNICODE));
+//    echo "pushHourlyData result :".$strout.PHP_EOL.PHP_EOL;
 
 
   //print_r($client->__getFunctions());//列出当前SOAP所有的方法，参数和数据类型，也可以说是获得web service的接口
